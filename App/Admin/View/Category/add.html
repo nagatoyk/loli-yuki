@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>添加列表</title>
+	<hdjs><bootstrap>
+</head>
+<body>
+	<div class="wrap">
+		<div class="menu_list">
+			<ul>
+				<li><a href="{|U:'index'}"> 栏目列表 </a></li>
+				<li><a href="javascript:void(0);" class="action"> 添加栏目 </a></li>
+				<li><a href="javascript:update_cache();"> 更新栏目缓存 </a></li>
+			</ul>
+		</div>
+		<div class="title-header">添加栏目</div>
+		<form class="hd-form" method="post" onsubmit="return hd_submit(this, '{|U:'add'}')">
+			<table class="table1">
+				<tr>
+					<td class="w100">栏目名称</td>
+					<td>
+						<input class="w400" type="text" name="cname" autocomplete="off">
+						<span id="hd_cname"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="w100">栏目关键词</td>
+					<td>
+						<input class="w400" type="text" name="keywords" autocomplete="off">
+						<span id="hd_keywords"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="w100">栏目描述</td>
+					<td>
+						<textarea class="w400 h100" name="description"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="hidden" name="pid" value="{$hd.get.pid|default:0}">
+						<input class="btn btn-primary" type="submit" value="提交">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			$('form').validate({
+				cname: {
+					rule: {
+						required: true
+					},
+					error: {
+						required: '栏目名称不能留空'
+					},
+					message: '请输入栏目名称'
+				},
+				keywords: {
+					rule: {
+						required: true
+					},
+					error: {
+						required: '栏目关键词不能留空'
+					},
+					message: '请输入栏目关键词'
+				},
+				description: {
+					rule: {
+						required: true
+					},
+					error: {
+						required: '栏目描述不能留空'
+					},
+					message: '请输入栏目描述'
+				}
+			})
+		})
+	</script>
+</body>
+</html>
