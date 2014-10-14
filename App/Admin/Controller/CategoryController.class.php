@@ -3,20 +3,23 @@
  * 栏目管理
  */
 class CategoryController extends AuthController{
-	private $db;
+	/**
+	 * 栏目是有属性
+	 */
+	private $db, $cate;
 	/**
 	 * 初始化
 	 */
 	public function __construct(){
 		parent::__construct();
 		$this->db = K('Category');
+		$this->cate = F('category');
 	}
 	/**
 	 * 首页
 	 */
 	public function index(){
-		$list = $this->db->select();
-		$this->list = Data::tree($list, 'cname');
+		$this->category = $this->cate;
 		$this->display();
 	}
 	/**
@@ -61,8 +64,7 @@ class CategoryController extends AuthController{
 			}
 			$this->ajax($return);
 		}else{
-			$category = $this->db->all();
-			$category = Data::tree($category, 'cname');
+			$category = $this->cate;
 			$field = $this->db->find(Q('cid', 0, 'intval'));
 			foreach($category as $k => $v){
 				// 父级栏目选中
@@ -81,7 +83,7 @@ class CategoryController extends AuthController{
 				}
 				$category[$k] = $v;
 			}
-			$this->cate = $category;
+			$this->category = $category;
 			$this->field = $field;
 			$this->display();
 		}
@@ -91,6 +93,22 @@ class CategoryController extends AuthController{
 			$return = array(
 				'status' => 1,
 				'message' => '删除成功!!',
+				'timeout' => 3
+			);
+		}else{
+			$return = array(
+				'status' => 0,
+				'message' => $this->db->error,
+				'timeout' => 3
+			);
+		}
+		$this->ajax($return);
+	}
+	public function upcache(){
+		if($this->db->cachedata()){
+			$return = array(
+				'status' => 1,
+				'message' => '跟新缓存成功!!',
 				'timeout' => 3
 			);
 		}else{

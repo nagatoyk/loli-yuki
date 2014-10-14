@@ -4,7 +4,7 @@
  */
 class CategoryModel extends Model{
 	/**
-	 * 表名
+	 * 数据表名
 	 */
 	public $table = 'category';
 	/**
@@ -18,7 +18,9 @@ class CategoryModel extends Model{
 	 */
 	public function addcate(){
 		if($this->create()){
-			return $this->add();
+			if($this->add()){
+				return $this->cachedata();
+			}
 		}else{
 			$this->error = '添加失败OAQ!!';
 		}
@@ -28,7 +30,9 @@ class CategoryModel extends Model{
 	 */
 	public function editcate(){
 		if($this->create()){
-			return $this->save();
+			if($this->save()){
+				return $this->cachedata();
+			}
 		}else{
 			$this->error = '编辑失败OAQ!!';
 		}
@@ -41,7 +45,16 @@ class CategoryModel extends Model{
 		if($this->where(array('pid' => $cid))->find()){
 			$this->error = '请先删除子栏目OAQ!!';
 		}else{
-			return $this->del($cid);
+			if($this->del($cid)){
+				return $this->cachedata();
+			}
 		}
+	}
+	/**
+	 * 缓存栏目数据方法
+	 */
+	public function cachedata(){
+		$catedata = Data::tree($this->all(), 'cname');
+		return F('category', $catedata);
 	}
 }

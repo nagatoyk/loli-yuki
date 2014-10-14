@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>添加文章</title>
+	<hdjs><bootstrap>
+</head>
+<body>
+	<div class="wrap">
+		<div class="menu_list">
+			<ul>
+				<li><a href="{|U:'index'}"> 文章列表 </a></li>
+				<li><a href="javascript:void(0);" class="action"> 添加文章 </a></li>
+			</ul>
+		</div>
+		<form class="hd-form" method="post" onsubmit="return hd_submit(this, '{|U:'add'}')">
+			<div class="tab">
+				<ul class="tab_menu">
+					<li lab="base"><a> 基本信息 </a></li>
+					<li lab="base2" class="action"><a> 其他信息 </a></li>
+					<li lab="base3"><a> 其他信息 </a></li>
+				</ul>
+				<div class="tab_content">
+					<div id="base">
+						<table class="table1">
+							<tr>
+								<td class="w100">文章标题</td>
+								<td>
+									<input class="w400" type="text" name="title" autocomplete="off">
+									<span id="hd_title"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="w100">文章分类</td>
+								<td>
+									<select name="catid">
+										<list from='$category' name='c'>
+										<option value="{$c.cid}">{$c._name}</option>
+										</list>
+									</select>
+									<span id="hd_catid"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="w100">正文内容</td>
+								<td>
+									<ueditor name='content'>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div id="base2">2</div>
+					<div id="base3">3</div>
+				</div>
+			</div>
+		</div>
+		<div class="position-bottom">
+			<input class="btn btn-primary" type="submit" value="提交">
+		</div>
+	</form>
+	<script type="text/javascript">
+		$(function() {
+			$('form').validate({
+				cname: {
+					rule: {
+						required: true
+					},
+					error: {
+						required: '栏目名称不能留空'
+					},
+					message: '请输入栏目名称'
+				},
+				keywords: {
+					rule: {
+						required: true
+					},
+					error: {
+						required: '栏目关键词不能留空'
+					},
+					message: '请输入栏目关键词'
+				},
+				description: {
+					rule: {
+						required: true
+					},
+					error: {
+						required: '栏目描述不能留空'
+					},
+					message: '请输入栏目描述'
+				}
+			})
+		})
+	</script>
+</body>
+</html>

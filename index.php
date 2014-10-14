@@ -12,6 +12,8 @@ define('MYSQL_USERNAME', 'root');
 define('MYSQL_PASSWORD', '');
 // 定义应用目录
 define('APP_NAME', 'App');
+define('TEMP_PATH', './Data/');
+
 define('MODULE_LIST', 'Index,Admin');
 define('APP_PATH', './'.APP_NAME.'/');
 
