@@ -5,7 +5,7 @@
 class AuthController extends Controller{
 
 	public function __construct(){
-		if(!session(C('RBAC_USERNAME_FIELD')) && !session(C('RBAC_AUTH_KEY'))){
+		if(!session('username') && !session('uid')){
 			go('Admin/Login/index');
 		}
 	}

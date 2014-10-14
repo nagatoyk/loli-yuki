@@ -52,7 +52,8 @@ test/
 Think/
 thinkapp/
 upload/
-#Data/Compile/
-#Data/Cache/
+App/Compile/
+App/Cache/
+App/Log/
 index*.php
 testmysql.php

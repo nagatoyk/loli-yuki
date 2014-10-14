@@ -37,13 +37,11 @@
 						<textarea class="w400 h100" name="description"></textarea>
 					</td>
 				</tr>
-				<tr>
-					<td colspan="2">
-						<input type="hidden" name="pid" value="{$hd.get.pid|default:0}">
-						<input class="btn btn-primary" type="submit" value="提交">
-					</td>
-				</tr>
 			</table>
+			<div class="position-bottom">
+				<input type="hidden" name="pid" value="{$hd.get.pid|default:0}">
+				<input class="btn hd-success" type="submit" value="提交">
+			</div>
 		</form>
 	</div>
 	<script type="text/javascript">

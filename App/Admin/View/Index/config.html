@@ -1,39 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<mata charset="utf-8">
-	<title>自动加载配置</title>
-	<jquery><hdui><bootstrap>
+	<title>网站配置</title>
+	<hdjs/><bootstrap/>
 </head>
 <body>
-	<form class="hd-form" action="{|U:'config'}" method="post">
-		<table class="table1">
-			<tr>
-				<th colspan="2">自动加载配置</th>
-			</tr>
-			<foreach from='$hd.config.AUTO_LOAD_FILE' key='$key' value='$val'>
-				<tr>
-					<td>
-						<b class="r btn btn-primary">自动加载</b>
-					</td>
-					<td>
-						<input class="w300 h50" type="text" name="AUTO_LOAD_FILE[]" value="{$val}">
-						<input class="btn btn-primary" type="button" value="增加条目">
-					</td>
-				</tr>
-			</foreach>
-			<tr class="last">
-				<td colspan="2"><input class="btn btn-primary" type="submit" value="提交"></td>
-			</tr>
-		</table>
-	</form>
-	<script type="text/javascript">
-		$(function() {
-			$('input[type="button"]').click(function() {
-				var obj = $(this).parents('tr').clone();
-				$('.last').before(obj)
-			})
-		})
-	</script>
+	<div class="wrap">
+		<div class="title-header">站点配置</div>
+		<form class="hd-form" method="post" onsubmit="return hd_submit(this, '{|U:'config'}')">
+			<table class="table1">
+				<list from='$config' name='c'>
+					<tr>
+						<th class="w200">{$c.title}</th>
+						<td class="w400">{$c.html}</td>
+						<td>{ $hd.config.{$c.name} }</td>
+					</tr>
+				</list>
+			</table>
+			<div class="position-bottom">
+				<input class="btn hd-success" type="submit" value="提交">
+			</div>
+		</form>
+	</div>
 </body>
 </html>

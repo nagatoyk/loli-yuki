@@ -20,17 +20,23 @@
 				<th>文章标题</th>
 				<th>文章分类</th>
 				<th>发布时间</th>
+				<th>发布人</th>
+				<th>点击量</th>
 				<th>操作</th>
 			</tr>
 			<list from='$article' name='a'>
 				<tr>
 					<td>{$a.aid}</td>
 					<td>{$a.title}</td>
-					<td></td>
-					<td>[查看][<a href="{|U:'edit', array('aid' => $c['aid'])}">编辑</a>][<a href="javascript:hd_ajax('{|U:'del', array('aid' => $c['aid'])}')">删除</a>]</td>
+					<td>分类</td>
+					<td>{$a.addtime|hd_date:'Y-m-d H:i:s'}</td>
+					<td>发布人</td>
+					<td>{$a.click}</td>
+					<td>[<a href="#">查看</a>][<a href="{|U:'edit', array('aid' => $a['aid'])}">编辑</a>][<a href="javascript:hd_ajax('{|U:'del', array('aid' => $a['aid'])}')">删除</a>]</td>
 				</tr>
 			</list>
 		</table>
+		<div class="page1">{$page}</div>
 	</div>
 </body>
 </html>

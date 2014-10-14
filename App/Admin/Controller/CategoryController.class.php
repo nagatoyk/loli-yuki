@@ -31,14 +31,12 @@ class CategoryController extends AuthController{
 			if($this->db->addcate()){
 				$return = array(
 					'status' => 1,
-					'message' => '添加成功!!',
-					'timeout' => 3
+					'message' => '添加成功!!'
 				);
 			}else{
 				$return = array(
 					'status' => 0,
-					'message' => $this->db->error,
-					'timeout' => 3
+					'message' => $this->db->error
 				);
 			}
 			$this->ajax($return);
@@ -52,14 +50,12 @@ class CategoryController extends AuthController{
 			if($this->db->save()){
 				$return = array(
 					'status' => 1,
-					'message' => '编辑成功!!',
-					'timeout' => 3
+					'message' => '编辑成功!!'
 				);
 			}else{
 				$return = array(
 					'status' => 0,
-					'message' => $this->db->error,
-					'timeout' => 3
+					'message' => $this->db->error
 				);
 			}
 			$this->ajax($return);
@@ -108,14 +104,12 @@ class CategoryController extends AuthController{
 		if($this->db->cachedata()){
 			$return = array(
 				'status' => 1,
-				'message' => '跟新缓存成功!!',
-				'timeout' => 3
+				'message' => '更新缓存成功!!'
 			);
 		}else{
 			$return = array(
 				'status' => 0,
-				'message' => $this->db->error,
-				'timeout' => 3
+				'message' => $this->db->error
 			);
 		}
 		$this->ajax($return);

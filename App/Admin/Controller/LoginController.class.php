@@ -13,7 +13,7 @@ class LoginController extends Controller{
 	 * 登录首页
 	 */
 	public function index(){
-		if(session(C('RBAC_USERNAME_FIELD')))go('Index/index');
+		if(session('username') && session('uid'))go('Index/index');
 		$this->display();
 	}
 	/**
@@ -35,8 +35,8 @@ class LoginController extends Controller{
 			'logintime' => time()
 		);
 		$db->where(array('id' => $user['id']))->save($data);
-		session(C('RBAC_USERNAME_FIELD'), $user['username']);
-		session(C('RBAC_AUTH_KEY'), $user['id']);
+		session('username', $user['username']);
+		session('uid', $user['id']);
 		$this->success('登录成功!!', 'Index/index');
 	}
 	/**

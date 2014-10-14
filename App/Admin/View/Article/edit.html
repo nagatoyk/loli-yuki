@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>添加文章</title>
+	<title>编辑文章</title>
 	<hdjs/><bootstrap/>
 </head>
 <body>
@@ -10,10 +10,10 @@
 		<div class="menu_list">
 			<ul>
 				<li><a href="{|U:'index'}"> 文章列表 </a></li>
-				<li><a href="javascript:void(0);" class="action"> 添加文章 </a></li>
+				<li><a href="javascript:void(0);" class="action"> 编辑文章 </a></li>
 			</ul>
 		</div>
-		<form class="hd-form" action="{|U:'add'}" method="post" enctype="multipart/form-data">
+		<form class="hd-form" action="{|U:'edit'}" method="post" enctype="multipart/form-data">
 			<div class="tab">
 				<ul class="tab_menu">
 					<li lab="base"><a> 基本信息 </a></li>
@@ -26,7 +26,7 @@
 							<tr>
 								<td class="w100">文章标题</td>
 								<td>
-									<input class="w400" type="text" name="title" autocomplete="off"/>
+									<input class="w400" type="text" name="title" value="{$field.title}" autocomplete="off"/>
 									<span id="hd_title"></span>
 								</td>
 							</tr>
@@ -35,7 +35,7 @@
 								<td>
 									<select name="catid">
 										<list from='$category' name='c'>
-										<option value="{$c.cid}">{$c._name}</option>
+										<option value="{$c.cid}"<if value='$field.catid eq $c.cid'> selected="selected"</if>>{$c._name}</option>
 										</list>
 									</select>
 									<span id="hd_catid"></span>
@@ -43,12 +43,12 @@
 							</tr>
 							<tr>
 								<td class="w100">封面</td>
-								<td><input type="file" name="thumb"></td>
+								<td><input class="l btn btn2 h50" type="file" name="thumb"/><if value='$field.thumb'><img src="__ROOT__/{$field.thumb}" class="w100 h50 l"></if></td>
 							</tr>
 							<tr>
 								<td class="w100">正文内容</td>
 								<td>
-									<ueditor name='content'/>
+									<ueditor name='content' content='{$field.content}'/>
 								</td>
 							</tr>
 						</table>
@@ -57,25 +57,25 @@
 						<table class="table1">
 							<tr>
 								<td class="w100">关键词</td>
-								<td><input class="w400" type="text" name="keywords" autocomplete="off"/></td>
+								<td><input class="w400" type="text" name="keywords" value="{$field.keywords}" autocomplete="off"/></td>
 							</tr>
 							<tr>
 								<td>文章描述</td>
 								<td>
-									<textarea class="w400 h100" name="description"></textarea>
+									<textarea class="w400 h100" name="description">{$field.description}</textarea>
 								</td>
 							</tr>
 							<tr>
 								<td>点击量</td>
-								<td><input type="number" name="click" value="10"/></td>
+								<td><input type="number" name="click" value="{$field.click}"/></td>
 							</tr>
 							<tr>
 								<td>发布名</td>
-								<td><input type="text" name="author" value="{$hd.session.username}" autocomplete="off"/></td>
+								<td><input type="text" name="author" value="{$field.author}" autocomplete="off"/></td>
 							</tr>
 							<tr>
 								<td>来源</td>
-								<td><input class="w400" type="text" name="source" autocomplete="off"/></td>
+								<td><input class="w400" type="text" name="source" value="{$field.source}" autocomplete="off"/></td>
 							</tr>
 						</table>
 					</div>
@@ -83,6 +83,7 @@
 				</div>
 			</div>
 			<div class="position-bottom">
+				<input type="hidden" name="aid" value="{$hd.get.aid}">
 				<input class="btn hd-success" type="submit" value="提交">
 			</div>
 		</form>
