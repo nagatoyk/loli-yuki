@@ -9,4 +9,10 @@ return array (
 	'DB_DATABASE'        => 'hd',
 	'DB_PREFIX'          => 'hd_',
 	'DB_BACKUP'          => 'backup/',
+	'EDITOR_TYPE'        => 1,
+	'EDITOR_STYLE'       => 1,
+	'EDITOR_WIDTH'       => '100%',
+	'EDITOR_HEIGHT'      => 300,
+	'EDITOR_SAVE_PATH'   => 'upload/editor/',
+	'EDITOR_IMAGE_WATER' => false,
 );

@@ -52,7 +52,7 @@ test/
 Think/
 thinkapp/
 upload/
-Data/Compile/
-Data/Cache/
+#Data/Compile/
+#Data/Cache/
 index*.php
 testmysql.php
