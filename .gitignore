@@ -26,7 +26,8 @@ $RECYCLE.BIN/
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -41,3 +42,17 @@ Icon
 Network Trash Folder
 Temporary Items
 .apdisk
+*.pdf
+*.chm
+framework/
+old/
+Static/
+Public/
+test/
+Think/
+thinkapp/
+upload/
+App/Temp/
+loli/
+index*.php
+testmysql.php

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<mata charset="utf-8">
+	<title>验证码配置</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/public.css">
+</head>
+<body>
+	<form action="{|U:'upconf', array('type' => 'code')}" method="post">
+		<table class="table">
+			<tr>
+				<th colspan="2">验证码配置</th>
+			</tr>
+			<tr>
+				<td align="right">验证码字体</td>
+				<td><input type="text" name="CODE_FONT" value="{$hd.config.CODE_FONT}"></td>
+			</tr>
+			<tr>
+				<td align="right">验证码种子</td>
+				<td><input type="text" name="CODE_STR" value="{$hd.config.CODE_STR}"></td>
+			</tr>
+			<tr>
+				<td align="right">验证码画布宽度</td>
+				<td><input type="text" name="CODE_WIDTH" value="{$hd.config.CODE_WIDTH}"></td>
+			</tr>
+			<tr>
+				<td align="right">验证码画布高度</td>
+				<td><input type="text" name="CODE_HEIGHT" value="{$hd.config.CODE_HEIGHT}"></td>
+			</tr>
+			<tr>
+				<td align="right">验证码背景颜色</td>
+				<td><input type="text" name="CODE_BG_COLOR" value="{$hd.config.CODE_BG_COLOR}"></td>
+			</tr>
+			<tr>
+				<td align="right">验证码字符长度</td>
+				<td><input type="text" name="CODE_LEN" value="{$hd.config.CODE_LEN}"></td>
+			</tr>
+			<tr>
+				<td align="right">验证码字符尺寸</td>
+				<td><input type="text" name="CODE_FONT_SIZE" value="{$hd.config.CODE_FONT_SIZE}"></td>
+			</tr>
+			<tr>
+				<td align="right">验证码字符颜色</td>
+				<td><input type="text" name="CODE_FONT_COLOR" value="{$hd.config.CODE_FONT_COLOR}"></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input class="submit" type="submit" value="提交"></th>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

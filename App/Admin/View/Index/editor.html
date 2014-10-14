@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<mata charset="utf-8">
+	<title>编辑器配置</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/public.css">
+</head>
+<body>
+	<form action="{|U:'upconf', array('type' => 'editor')}" method="post">
+		<table class="table">
+			<tr>
+				<th colspan="2">编辑器配置</th>
+			</tr>
+			<tr>
+				<td align="right">编辑器类型</td>
+				<td>
+					<label><input type="radio" name="EDITOR_TYPE" value="1">UEditor&nbsp;</label>
+					<label><input type="radio" name="EDITOR_TYPE" value="2">kindEditor</label>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">编辑器风格</td>
+				<td>
+					<label><input type="radio" name="EDITOR_STYLE" value="1">完整&nbsp;</label>
+					<label><input type="radio" name="EDITOR_STYLE" value="2">精简</label>
+				</td>
+			</tr>
+			<tr>
+				<td align="right">编辑器宽度</td>
+				<td><input type="text" name="EDITOR_WIDTH" value="{$hd.config.EDITOR_WIDTH}"></td>
+			</tr>
+			<tr>
+				<td align="right">编辑器高度</td>
+				<td><input type="text" name="EDITOR_HEIGHT" value="{$hd.config.EDITOR_HEIGHT}"></td>
+			</tr>
+			<tr>
+				<td align="right">文件储存目录</td>
+				<td><input type="text" name="EDITOR_SAVE_PATH" value="{$hd.config.EDITOR_SAVE_PATH}"></td>
+			</tr>
+			<tr>
+				<td align="right">图片水印控制</td>
+				<td><input type="text" name="EDITOR_IMAGE_WATER" value="{$hd.config.EDITOR_IMAGE_WATER}"></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input class="submit" type="submit" value="提交"></th>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

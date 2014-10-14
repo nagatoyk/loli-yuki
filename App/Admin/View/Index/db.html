@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<mata charset="utf-8">
+	<title>数据库配置</title>
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/public.css">
+</head>
+<body>
+	<form action="{|U:'upconf', array('type' => 'db')}" method="post">
+		<table class="table">
+			<tr>
+				<th colspan="2">数据库配置</th>
+			</tr>
+			<tr>
+				<td align="right">数据库驱动</td>
+				<td><input type="text" name="DB_DRIVER" value="{$hd.config.DB_DRIVER}"></td>
+			</tr>
+			<tr>
+				<td align="right">数据库字符集</td>
+				<td><input type="text" name="DB_CHARSET" value="{$hd.config.DB_CHARSET}"></td>
+			</tr>
+			<tr>
+				<td align="right">数据库主机</td>
+				<td><input type="text" name="DB_HOST" value="{$hd.config.DB_HOST}"></td>
+			</tr>
+			<tr>
+				<td align="right">数据库端口</td>
+				<td><input type="text" name="DB_PORT" value="{$hd.config.DB_PORT}"></td>
+			</tr>
+			<tr>
+				<td align="right">数据库用户名</td>
+				<td><input type="text" name="DB_USER" value="{$hd.config.DB_USER}"></td>
+			</tr>
+			<tr>
+				<td align="right">数据库密码</td>
+				<td><input type="text" name="DB_PASSWORD" value="{$hd.config.DB_PASSWOR}"></td>
+			</tr>
+			<tr>
+				<td align="right">数据库库名</td>
+				<td><input type="text" name="DB_DATABASE" value="{$hd.config.DB_DATABASE}"></td>
+			</tr>
+			<tr>
+				<td align="right">数据库前缀</td>
+				<td><input type="text" name="DB_PREFIX" value="{$hd.config.DB_PREFIX}"></td>
+			</tr>
+			<tr>
+				<td align="right">数据库备份目录</td>
+				<td><input type="text" name="DB_BACKUP" value="{$hd.config.DB_BACKUP}"></td>
+			</tr>
+			<tr>
+				<th colspan="2"><input class="submit" type="submit" value="提交"></th>
+			</tr>
+		</table>
+	</form>
+</body>
+</html>

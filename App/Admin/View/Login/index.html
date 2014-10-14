@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>登录后台</title>
+	<jquery><hdui><hdvalidate><bootstrap>
+</head>
+<body>
+	<form class="hd-form" action="{|U:'login'}" method="post">
+		<table class="table1">
+			<tr>
+				<th class="r">用户名</th>
+				<td><input type="text" name="username"></td>
+			</tr>
+			<tr>
+				<th class="r">密码</th>
+				<td><input type="password" name="password"></td>
+			</tr>
+			<tr>
+				<th class="r">验证码</th>
+				<td><input type="text" name="code"><img src="{|U('code')}"><span id="hd_code"></span></td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					<input class="btn btn-primary" type="submit" value="登录">
+				</td>
+			</tr>
+		</table>
+	</form>
+	<script type="text/javascript">
+		$(function() {
+			$('form').validate({
+				username: {
+					rule: {
+						required: true
+					},
+					error: {
+						required: '用户名不能为空'
+					},
+					message: '请填写用户名'
+				},
+				password: {
+					rule: {
+						required: true
+					},
+					error: {
+						required: '密码不能为空'
+					},
+					message: '请填写密码'
+				},
+				code: {
+					rule: {
+						required: true,
+						ajax:'{|U('checkcode')}'
+					},
+					error: {
+						required: '验证码不能为空',
+						ajax: '验证码错误'
+					},
+					message: '请填写验证码'
+				}
+			})
+		})
+	</script>
+</body>
+</html>
