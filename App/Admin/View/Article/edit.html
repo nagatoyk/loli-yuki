@@ -56,16 +56,6 @@
 					<div id="base2">
 						<table class="table1">
 							<tr>
-								<td class="w100">关键词</td>
-								<td><input class="w400" type="text" name="keywords" value="{$field.keywords}" autocomplete="off"/></td>
-							</tr>
-							<tr>
-								<td>文章描述</td>
-								<td>
-									<textarea class="w400 h100" name="description">{$field.description}</textarea>
-								</td>
-							</tr>
-							<tr>
 								<td>点击量</td>
 								<td><input type="number" name="click" value="{$field.click}"/></td>
 							</tr>
@@ -99,24 +89,6 @@
 						required: '文章标题不能留空'
 					},
 					message: '请输入文章标题'
-				},
-				keywords: {
-					rule: {
-						required: true
-					},
-					error: {
-						required: '文章关键词不能留空'
-					},
-					message: '请输入文章关键词'
-				},
-				description: {
-					rule: {
-						required: true
-					},
-					error: {
-						required: '文章描述不能留空'
-					},
-					message: '请输入文章描述'
 				}
 			})
 		})

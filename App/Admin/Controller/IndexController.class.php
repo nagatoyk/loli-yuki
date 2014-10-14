@@ -19,6 +19,12 @@ class IndexController extends AuthController{
 		$this->display();
 	}
 	/**
+	 * 站点相关信息
+	 */
+	public function info(){
+		p(C('title'));
+	}
+	/**
 	 * 网站配置
 	 */
 	public function config(){
