@@ -3,36 +3,23 @@
  * 文章管理
  */
 class ArticleController extends AuthController{
-	private $db, $cate;
+	private $db, $rdb, $cate;
 	public function __construct(){
 		parent::__construct();
-		// 文章数据库模型
+		// 文章处理模型
 		$this->db = K('Article');
+		// 文章关联模型
+		$this->rdb = K('ArticleRelation');
 		// 栏目缓存
 		$this->cate = F('category');
 	}
 	// 文章列表
 	public function index(){
-		$db = R('article');
-		$db->join = array(
-			'category' => array(
-				'type' => BELONGS_TO,
-				'foreign_key' => 'cid',
-				'parent_key' => 'cid',
-				'field' => 'cname'
-			),
-			'user' => array(
-				'type' => BELONGS_TO,
-				'foreign_key' => 'uid',
-				'parent_key' => 'uid',
-				'field' => 'username'
-			)
-		);
-		$field = array('aid', 'cid', 'uid', 'title', 'click', 'addtime');
+		$field = array('aid', 'catid', 'uid', 'title', 'click', 'addtime');
 		$total = $this->db->count();
-		$page = new Page($total, 10, 5);
+		$page = new Page($total, 2, 5);
 		$this->page = $page->show();
-		$this->article = $db->field($field)->order('addtime DESC')->limit($page->limit())->select();
+		$this->article = $this->rdb->field($field)->order('addtime DESC')->limit($page->limit())->select();
 		$this->display();
 		// echo $sql ="SELECT ".C('DB_PREFIX')."article.catid, ".C('DB_PREFIX')."category.cid from ".C('DB_PREFIX')."article INNER JOIN ".C('DB_PREFIX')."category ON (".C('DB_PREFIX')."article.catid=".C('DB_PREFIX')."category.cid)";
 	}

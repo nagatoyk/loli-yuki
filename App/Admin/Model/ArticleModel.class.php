@@ -38,12 +38,13 @@ class ArticleModel extends Model{
 		if($this->create()){
 			// 如果有上传封面
 			if(!empty($_FILES['thumb']['name'])){
+				$aid = Q('aid', 0, 'intval');
 				// 文章封面上传处理
 				$up = new Upload('Upload/article/'.date('Ymd'));
 				$file = $up->upload();
 				$this->data['thumb'] = $file[0]['path'];
 				// 查找旧封面数据并删除
-				$thumb = $this->where('aid='.(int)$_POST['aid'])->getField('thumb');
+				$thumb = $this->where('aid='.$aid)->getField('thumb');
 				is_file($thumb) and unlink($thumb);
 			}
 			return $this->save();

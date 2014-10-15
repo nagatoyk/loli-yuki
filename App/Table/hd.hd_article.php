@@ -9,9 +9,9 @@ return array (
     'default' => NULL,
     'extra' => 'auto_increment',
   ),
-  'cid' => 
+  'catid' => 
   array (
-    'field' => 'cid',
+    'field' => 'catid',
     'type' => 'smallint(5) unsigned',
     'null' => 'NO',
     'key' => false,
@@ -85,6 +85,15 @@ return array (
   array (
     'field' => 'updatetime',
     'type' => 'int(10) unsigned',
+    'null' => 'NO',
+    'key' => false,
+    'default' => '0',
+    'extra' => '',
+  ),
+  'ban' => 
+  array (
+    'field' => 'ban',
+    'type' => 'tinyint(1) unsigned',
     'null' => 'NO',
     'key' => false,
     'default' => '0',
