@@ -52,7 +52,7 @@ class ArticleModel extends Model{
 	}
 	// 删除文章处理
 	public function delart(){
-		$aid = (int)$_GET['aid'];
+		$aid = Q('aid', 0, 'intval');
 		if(!$this->find($aid))$this->error = '该文章记录不存在';
 		$thumb = $this->where('aid='.$aid)->getField('thumb');
 		is_file($thumb) and unlink($thumb);

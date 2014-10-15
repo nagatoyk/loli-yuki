@@ -1,138 +1,21 @@
 <include file='__PUBLIC__/common/header.html'/>
-	<jquery/>
+	<!-- 主体左侧开始 -->
 		<div class="main-left">
+			<list from='$artlist' name='l'>
 			<dl>
-				<dt>PHP -- 对象</dt>
-				<dd class="channel">对象的产生与生命周期</dd>
+				<dt>{$l.cname}</dt>
+				<dd class="channel">{$l.title}</dd>
 				<dd class="info">
-					<span class="time">发布于：2012年12月21日 12:12:12</span>
-					<span class="click">点击：1024</span>
+					<span class="time">发布于：{$l.time|hd_date:'Y年m月d日 H:i:s'}</span>
+					<span class="click">点击：{$l.click}</span>
 				</dd>
 				<dd class="content">对象的产生与生命周期</dd>
 				<dd class="read">
-					<a href="">阅读全文>></a>
+					<a href="{|U:'artview', array('aid' => $l['aid'])}">阅读全文>></a>
 				</dd>
 			</dl>
-
-			<dl>
-				<dt>PHP -- 对象</dt>
-				<dd class="channel">对象的产生与生命周期</dd>
-				<dd class="info">
-					<span class="time">发布于：2012年12月21日 12:12:12</span>
-					<span class="click">点击：1024</span>
-				</dd>
-				<dd class="content">对象的产生与生命周期</dd>
-				<dd class="read">
-					<a href="">阅读全文>></a>
-				</dd>
-			</dl>
-			<dl>
-				<dt>PHP -- 对象</dt>
-				<dd class="channel">对象的产生与生命周期</dd>
-				<dd class="info">
-					<span class="time">发布于：2012年12月21日 12:12:12</span>
-					<span class="click">点击：1024</span>
-				</dd>
-				<dd class="content">对象的产生与生命周期</dd>
-				<dd class="read">
-					<a href="">阅读全文>></a>
-				</dd>
-			</dl>
-			<dl>
-				<dt>PHP -- 对象</dt>
-				<dd class="channel">对象的产生与生命周期</dd>
-				<dd class="info">
-					<span class="time">发布于：2012年12月21日 12:12:12</span>
-					<span class="click">点击：1024</span>
-				</dd>
-				<dd class="content">对象的产生与生命周期</dd>
-				<dd class="read">
-					<a href="">阅读全文>></a>
-				</dd>
-			</dl>
-			<dl>
-				<dt>PHP -- 对象</dt>
-				<dd class="channel">对象的产生与生命周期</dd>
-				<dd class="info">
-					<span class="time">发布于：2012年12月21日 12:12:12</span>
-					<span class="click">点击：1024</span>
-				</dd>
-				<dd class="content">对象的产生与生命周期</dd>
-				<dd class="read">
-					<a href="">阅读全文>></a>
-				</dd>
-			</dl>
+			</list>
 		</div>
-	<!--主体右侧-->
-		<div class="main-right">
-			<dl>
-				<dt>热门博文</dt>
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-			</dl>
-
-			<dl>
-				<dt>最发布发</dt>
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-				<dd>
-					<a href="">对象的产生与生命周期</a>
-					<span>(1024)</span>
-				</dd>
-			</dl>
-
-			<dl>
-				<dt>友情连接</dt>
-				<dd>
-					<a href="">后盾网</a>
-				</dd>
-
-				<dd>
-					<a href="">后盾网论坛</a>
-				</dd>
-				<dd>
-					<a href="">后盾网学习社区</a>
-				</dd>
-			</dl>
-		</div>
-	</div>
-<!--底部-->
-	<div class="bottom">
-		<div></div>
-	</div>
-</body>
-</html>
+<!-- 主体左侧结束 -->
+<include file='__PUBLIC__/common/sidebar.html'/>
+<include file='__PUBLIC__/common/footer.html'/>

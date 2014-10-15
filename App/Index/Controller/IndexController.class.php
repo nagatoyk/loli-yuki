@@ -34,6 +34,20 @@ class IndexController extends Controller{
 	}
 	// 分类列表
 	public function artlist(){
+		$cid = Q('cid', 0, 'intval');
+		$cids = array();
+		$tmp = Data::channelList($this->cate, $cid);
+		foreach($tmp as $k => $v){
+			$cids[] = $v['cid'];
+		}
+		if($cids){
+			$cids[] = $cid;
+			$cids = implode(',', $cids);
+			$where = "catid IN({$cids})";
+		}else{
+			$where = 'catid='.$cid;
+		}
+		$this->artlist = $this->art->where($where)->order('time DESC')->all();
 		$this->display();
 	}
 	// 文章页面

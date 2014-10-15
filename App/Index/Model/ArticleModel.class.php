@@ -3,7 +3,6 @@
  * 文章视图模型
  */
 class ArticleModel extends ViewModel{
-	public $table = 'article';
 	public $view = array(
 		'article' => array(
 			'aid',
