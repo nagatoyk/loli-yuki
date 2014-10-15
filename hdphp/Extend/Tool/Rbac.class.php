@@ -89,12 +89,12 @@ final class Rbac
             $user[$uid] . "'";
         $userRoleInfo = $db->query($sql); //获得用户组信息
 
-        $_SESSION[$fieldUserName] = $user[$fieldUserName];
+        $_SESSION['username'] = $user['username'];
         $_SESSION[C("RBAC_AUTH_KEY")] = $user[$uid];
         $_SESSION['role'] = $userRoleInfo[0]['rname'];
         $_SESSION['rid'] = $userRoleInfo[0]['rid'];
         //是否判断超管理员
-        if (strtoupper($user[$fieldUserName]) == strtoupper($superadmin)) {
+        if (strtoupper($user['username']) == strtoupper($superadmin)) {
             //登录成功
             $_SESSION[C("RBAC_SUPER_ADMIN")] = 1;
             $_SESSION["RBAC"] = array();

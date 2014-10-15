@@ -14,6 +14,5 @@ return array (
 	'EDITOR_WIDTH'       => '100%',
 	'EDITOR_HEIGHT'      => 300,
 	'EDITOR_SAVE_PATH'   => 'upload/editor/',
-	'EDITOR_IMAGE_WATER' => false,
-	'AUTO_LOAD_FILE'     => array(APP_CONFIG_PATH.'config.inc.php')
+	'EDITOR_IMAGE_WATER' => false
 );

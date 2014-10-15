@@ -12,24 +12,32 @@ class ArticleController extends AuthController{
 	 */
 	public function __construct(){
 		parent::__construct();
-		/**
-		 * 文章数据库模型
-		 */
+		// 文章数据库模型
 		$this->db = K('Article');
-		/**
-		 * 栏目缓存
-		 */
+		// 栏目缓存
 		$this->cate = F('category');
 	}
-	/**
-	 * 文章列表
-	 */
+	// 文章列表
 	public function index(){
-		$total = $this->db->count();
-		$page = new Page($total, 10, 5);
+		$total = count($this->db->select());
+		// $total = $this->db->count();
+		$page = new Page($total, 1, 5);
 		$this->page = $page->show();
 		$this->article = $this->db->limit($page->limit())->select();
+		// $field = array('hd_article.title');
+		// p($this->db->limit($page->limit())->select());
 		$this->display();
+
+
+
+
+
+
+
+
+
+
+		// echo $sql ="SELECT ".C('DB_PREFIX')."article.catid, ".C('DB_PREFIX')."category.cid from ".C('DB_PREFIX')."article INNER JOIN ".C('DB_PREFIX')."category ON (".C('DB_PREFIX')."article.catid=".C('DB_PREFIX')."category.cid)";
 	}
 	/**
 	 * 添加文章

@@ -18,24 +18,6 @@ return array (
     'default' => NULL,
     'extra' => '',
   ),
-  'keywords' => 
-  array (
-    'field' => 'keywords',
-    'type' => 'varchar(80)',
-    'null' => 'YES',
-    'key' => false,
-    'default' => NULL,
-    'extra' => '',
-  ),
-  'description' => 
-  array (
-    'field' => 'description',
-    'type' => 'varchar(255)',
-    'null' => 'YES',
-    'key' => false,
-    'default' => NULL,
-    'extra' => '',
-  ),
   'title' => 
   array (
     'field' => 'title',

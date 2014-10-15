@@ -55,5 +55,6 @@ upload/
 App/Compile/
 App/Cache/
 App/Log/
+ooo/
 index*.php
 testmysql.php

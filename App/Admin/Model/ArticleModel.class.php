@@ -2,20 +2,31 @@
 /**
  * 文章模型
  */
-class ArticleModel extends Model{
-	/**
-	 * 数据表名
-	 */
+class ArticleModel extends RelationModel{
+	// 数据表名
 	public $table = 'article';
-	/**
-	 * 自动完成
-	 */
+	// 自动完成
 	public $auto = array(
 		// 文章发表时间(只在发表时作用)
 		array('addtime', 'time', 'function', 2, 1),
 		array('updatetime', 'time', 'function', 2, 2),
 		array('admin_id', 'get_adminid', 'method', 2, 3),
 		array('author', 'get_author', 'method', 2, 3)
+	);
+	// 关联栏目表
+	public $join = array(
+		'category' => array(
+			'type' => BELONGS_TO,
+			'foreign_key' => 'catid',
+			'parent_key' => 'cid',
+			'field' => 'cid,cname'
+		),
+		'user' => array(
+			'type' => BELONGS_TO,
+			'foreign_key' => 'admin_id',
+			'parent_key' => 'id',
+			'field' => 'username'
+		)
 	);
 	/**
 	 * 获取管理员ID
