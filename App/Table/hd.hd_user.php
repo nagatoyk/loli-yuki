@@ -1,8 +1,8 @@
 <?php if(!defined('HDPHP_PATH'))exit;
 return array (
-  'id' => 
+  'uid' => 
   array (
-    'field' => 'id',
+    'field' => 'uid',
     'type' => 'mediumint(9) unsigned',
     'null' => 'NO',
     'key' => true,

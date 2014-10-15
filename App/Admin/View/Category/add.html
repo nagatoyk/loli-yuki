@@ -15,19 +15,25 @@
 			</ul>
 		</div>
 		<div class="title-header">添加栏目</div>
-		<form class="hd-form" method="post" onsubmit="return hd_submit(this, '{|U:'add'}')">
+		<form class="hd-form" method="post" action="{|U:'add'}">
 			<table class="table1">
 				<tr>
 					<td class="w100">栏目名称</td>
 					<td>
-						<input class="w400" type="text" name="cname" autocomplete="off">
+						<input class="w400" type="text" name="cname" autocomplete="off"/>
 						<span id="hd_cname"></span>
+					</td>
+				</tr>
+				<tr>
+					<td class="w100">栏目排序</td>
+					<td>
+						<input class="w400" type="number" name="sort"/>
 					</td>
 				</tr>
 				<tr>
 					<td class="w100">栏目关键词</td>
 					<td>
-						<input class="w400" type="text" name="keywords" autocomplete="off">
+						<input class="w400" type="text" name="keywords" autocomplete="off"/>
 						<span id="hd_keywords"></span>
 					</td>
 				</tr>

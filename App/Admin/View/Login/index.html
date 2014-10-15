@@ -32,19 +32,23 @@
 			$('form').validate({
 				username: {
 					rule: {
-						required: true
+						required: true,
+						ajax: '{|U:'checkname'}'
 					},
 					error: {
-						required: '用户名不能为空'
+						required: '用户名不能为空',
+						ajax: '用户名不存在OAQ!!'
 					},
 					message: '请填写用户名'
 				},
 				password: {
 					rule: {
-						required: true
+						required: true,
+						ajax: '{|U:'checkpass'}'
 					},
 					error: {
-						required: '密码不能为空'
+						required: '密码不能为空',
+						ajax: '密码错误OAQ!!'
 					},
 					message: '请填写密码'
 				},

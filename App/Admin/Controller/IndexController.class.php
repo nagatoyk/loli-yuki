@@ -3,30 +3,19 @@
  * 后台主控
  */
 class IndexController extends AuthController{
-	// 网站配置对象
 	private $db;
-	/**
-	 * 初始化
-	 */
 	public function __construct(){
 		parent::__construct();
 		$this->db = K('Config');
 	}
-	/**
-	 * 后台首页
-	 */
+	// 后台首页
 	public function index(){
 		$this->display();
 	}
-	/**
-	 * 站点相关信息
-	 */
+	//站点相关信息
 	public function info(){
-		p(C('title'));
 	}
-	/**
-	 * 网站配置
-	 */
+	// 网站配置
 	public function config(){
 		if(IS_POST){
 			header('Content-Type:application/json;charset=utf-8');

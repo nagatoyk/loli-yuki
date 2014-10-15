@@ -3,65 +3,40 @@
  * 栏目管理
  */
 class CategoryController extends AuthController{
-	/**
-	 * 栏目是有属性
-	 */
 	private $db, $cate;
-	/**
-	 * 初始化
-	 */
 	public function __construct(){
 		parent::__construct();
 		$this->db = K('Category');
 		$this->cate = F('category');
 	}
-	/**
-	 * 首页
-	 */
+	// 栏目列表
 	public function index(){
 		$this->category = $this->cate;
 		$this->display();
 	}
-	/**
-	 * 添加处理
-	 */
+	// 添加处理
 	public function add(){
 		if(IS_POST){
-			header('Content-Type:application/json;charset=utf-8');
 			if($this->db->addcate()){
-				$return = array(
-					'status' => 1,
-					'message' => '添加成功!!'
-				);
+				$this->success('添加成功', 'index');
 			}else{
-				$return = array(
-					'status' => 0,
-					'message' => $this->db->error
-				);
+				$this->error($this->db->error);
 			}
-			$this->ajax($return);
 		}else{
 			$this->display();
 		}
 	}
+	// 编辑栏目
 	public function edit(){
 		if(IS_POST){
-			header('Content-Type:application/json;charset=utf-8');
 			if($this->db->save()){
-				$return = array(
-					'status' => 1,
-					'message' => '编辑成功!!'
-				);
+				$this->success('编辑成功', 'index');
 			}else{
-				$return = array(
-					'status' => 0,
-					'message' => $this->db->error
-				);
+				$this->error($this->db->error);
 			}
-			$this->ajax($return);
 		}else{
 			$category = $this->cate;
-			$field = $this->db->find(Q('cid', 0, 'intval'));
+			$field = $this->db->find((int)$_GET['cid']);
 			foreach($category as $k => $v){
 				// 父级栏目选中
 				$v['selected'] = '';
@@ -84,22 +59,23 @@ class CategoryController extends AuthController{
 			$this->display();
 		}
 	}
+	// 删除栏目
 	public function del(){
 		if($this->db->delcate()){
-			$return = array(
-				'status' => 1,
-				'message' => '删除成功!!',
-				'timeout' => 3
-			);
+			$this->success('删除成功', 'index');
 		}else{
-			$return = array(
-				'status' => 0,
-				'message' => $this->db->error,
-				'timeout' => 3
-			);
+			$this->error($this->db->error);
 		}
-		$this->ajax($return);
 	}
+	// 跟新排序
+	public function sort(){
+		if($this->db->upsort()){
+			$this->success('更新排序成功!!', 'index');
+		}else{
+			$this->error($this->db->error);
+		}
+	}
+	// 更新缓存
 	public function upcache(){
 		if($this->db->cachedata()){
 			$return = array(

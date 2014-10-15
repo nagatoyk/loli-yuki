@@ -129,7 +129,7 @@ final class Route
         defined('__ROOT__') or define("__ROOT__", __HOST__ . ($root == '/' || $root == '\\' ? '' : $root));
         //网站根-含入口文件 开启伪静态时去除入口文件
         if (C('URL_REWRITE') && substr($_SERVER['SCRIPT_NAME'], -3) == 'php') {
-            defined('__WEB__') or define("__WEB__", __HOST__ . dirname($_SERVER['SCRIPT_NAME']));
+            defined('__WEB__') or define("__WEB__", __HOST__ . str_replace(DS, '', dirname($_SERVER['SCRIPT_NAME'])));
         } else {
             defined('__WEB__') or define("__WEB__", __HOST__ . $_SERVER['SCRIPT_NAME']);
         }

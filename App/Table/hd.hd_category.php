@@ -13,36 +13,45 @@ return array (
   array (
     'field' => 'cname',
     'type' => 'char(30)',
-    'null' => 'YES',
+    'null' => 'NO',
     'key' => false,
-    'default' => NULL,
+    'default' => '',
     'extra' => '',
   ),
   'pid' => 
   array (
     'field' => 'pid',
     'type' => 'smallint(5) unsigned',
-    'null' => 'YES',
+    'null' => 'NO',
     'key' => false,
-    'default' => NULL,
+    'default' => '0',
     'extra' => '',
   ),
   'keywords' => 
   array (
     'field' => 'keywords',
     'type' => 'varchar(80)',
-    'null' => 'YES',
+    'null' => 'NO',
     'key' => false,
-    'default' => NULL,
+    'default' => '',
     'extra' => '',
   ),
   'description' => 
   array (
     'field' => 'description',
     'type' => 'varchar(255)',
-    'null' => 'YES',
+    'null' => 'NO',
     'key' => false,
-    'default' => NULL,
+    'default' => '',
+    'extra' => '',
+  ),
+  'sort' => 
+  array (
+    'field' => 'sort',
+    'type' => 'smallint(5) unsigned',
+    'null' => 'NO',
+    'key' => false,
+    'default' => '0',
     'extra' => '',
   ),
 );

@@ -14,5 +14,7 @@ return array (
 	'EDITOR_WIDTH'       => '100%',
 	'EDITOR_HEIGHT'      => 300,
 	'EDITOR_SAVE_PATH'   => 'upload/editor/',
-	'EDITOR_IMAGE_WATER' => false
+	'EDITOR_IMAGE_WATER' => false,
+	'URL_REWRITE'        => true,
+	'URL_TYPE'           => 1
 );

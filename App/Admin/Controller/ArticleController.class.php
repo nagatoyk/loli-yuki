@@ -3,13 +3,7 @@
  * 文章管理
  */
 class ArticleController extends AuthController{
-	/**
-	 * 文章私有属性
-	 */
 	private $db, $cate;
-	/**
-	 * 初始化
-	 */
 	public function __construct(){
 		parent::__construct();
 		// 文章数据库模型
@@ -19,29 +13,30 @@ class ArticleController extends AuthController{
 	}
 	// 文章列表
 	public function index(){
-		$total = count($this->db->select());
-		// $total = $this->db->count();
-		$page = new Page($total, 1, 5);
+		$db = R('article');
+		$db->join = array(
+			'category' => array(
+				'type' => BELONGS_TO,
+				'foreign_key' => 'cid',
+				'parent_key' => 'cid',
+				'field' => 'cname'
+			),
+			'user' => array(
+				'type' => BELONGS_TO,
+				'foreign_key' => 'uid',
+				'parent_key' => 'uid',
+				'field' => 'username'
+			)
+		);
+		$field = array('aid', 'cid', 'uid', 'title', 'click', 'addtime');
+		$total = $this->db->count();
+		$page = new Page($total, 10, 5);
 		$this->page = $page->show();
-		$this->article = $this->db->limit($page->limit())->select();
-		// $field = array('hd_article.title');
-		// p($this->db->limit($page->limit())->select());
+		$this->article = $db->field($field)->order('addtime DESC')->limit($page->limit())->select();
 		$this->display();
-
-
-
-
-
-
-
-
-
-
 		// echo $sql ="SELECT ".C('DB_PREFIX')."article.catid, ".C('DB_PREFIX')."category.cid from ".C('DB_PREFIX')."article INNER JOIN ".C('DB_PREFIX')."category ON (".C('DB_PREFIX')."article.catid=".C('DB_PREFIX')."category.cid)";
 	}
-	/**
-	 * 添加文章
-	 */
+	// 添加文章
 	public function add(){
 		if(IS_POST){
 			// 模型添加文章
@@ -55,9 +50,7 @@ class ArticleController extends AuthController{
 			$this->display();
 		}
 	}
-	/**
-	 * 编辑文章
-	 */
+	// 编辑文章
 	public function edit(){
 		if(IS_POST){
 			if(!Q('aid', null, 'intval'))$this->error('参数错误');
@@ -73,6 +66,7 @@ class ArticleController extends AuthController{
 			$this->display();
 		}
 	}
+	// 删除文章
 	public function del(){
 		if($this->db->delart()){
 			$return = array(

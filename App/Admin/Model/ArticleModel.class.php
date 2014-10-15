@@ -2,47 +2,25 @@
 /**
  * 文章模型
  */
-class ArticleModel extends RelationModel{
+class ArticleModel extends Model{
 	// 数据表名
 	public $table = 'article';
+	// 自动验证
+	public $validate = array(
+		array('title', 'nonull', '文章标题不能为空', 2, 3)
+	);
 	// 自动完成
 	public $auto = array(
 		// 文章发表时间(只在发表时作用)
 		array('addtime', 'time', 'function', 2, 1),
-		array('updatetime', 'time', 'function', 2, 2),
-		array('admin_id', 'get_adminid', 'method', 2, 3),
-		array('author', 'get_author', 'method', 2, 3)
+		array('updatetime', 'time', 'function', 2, 3),
+		array('uid', 'get_uid', 'method', 2, 3)
 	);
-	// 关联栏目表
-	public $join = array(
-		'category' => array(
-			'type' => BELONGS_TO,
-			'foreign_key' => 'catid',
-			'parent_key' => 'cid',
-			'field' => 'cid,cname'
-		),
-		'user' => array(
-			'type' => BELONGS_TO,
-			'foreign_key' => 'admin_id',
-			'parent_key' => 'id',
-			'field' => 'username'
-		)
-	);
-	/**
-	 * 获取管理员ID
-	 */
-	public function get_adminid(){
-		return session(C('RBAC_AUTH_KEY'));
+	// 获取发布人ID
+	public function get_uid(){
+		return session('uid');
 	}
-	/**
-	 * 获取发布人名称
-	 */
-	public function get_author(){
-		return empty($_POST['author']) ? session('username') : $_POST['author'];
-	}
-	/**
-	 * 添加处理
-	 */
+	// 文章添加处理
 	public function addart(){
 		if($this->create()){
 			// 如果有上传封面
@@ -55,9 +33,7 @@ class ArticleModel extends RelationModel{
 			return $this->add();
 		}
 	}
-	/**
-	 * 编辑处理
-	 */
+	// 文章编辑处理
 	public function editart(){
 		if($this->create()){
 			// 如果有上传封面
@@ -73,9 +49,7 @@ class ArticleModel extends RelationModel{
 			return $this->save();
 		}
 	}
-	/**
-	 * 删除文章
-	 */
+	// 删除文章处理
 	public function delart(){
 		$aid = (int)$_GET['aid'];
 		if(!$this->find($aid))$this->error = '该文章记录不存在';

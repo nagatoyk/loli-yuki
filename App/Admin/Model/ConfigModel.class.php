@@ -38,9 +38,7 @@ class ConfigModel extends Model{
 		}
 		return $html;
 	}
-	/**
-	 * 更新数据方法
-	 */
+	// 更新数据方法
 	public function update_config(){
 		foreach($_POST as $k => $v){
 			$this->save(array('id' => $k, 'value' => $v));

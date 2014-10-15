@@ -15,22 +15,29 @@
 			</ul>
 		</div>
 		<div class="title-header">栏目列表</div>
-		<table class="table1">
-			<tr>
-				<th>CID</th>
-				<th>栏目名称</th>
-				<th>栏目层级</th>
-				<th>操作</th>
-			</tr>
-			<list from='$category' name='c'>
+		<form class="hd-form" action="{|U:'sort'}" method="post">
+			<table class="table1">
 				<tr>
-					<td>{$c.cid}</td>
-					<td>{$c._name}</td>
-					<td>{$c._level}</td>
-					<td>[<a href="{|U:'add', array('pid' => $c['cid'])}">添加子栏目</a>][<a href="{|U:'edit', array('cid' => $c['cid'])}">编辑</a>][<a href="javascript:hd_ajax('{|U:'del', array('cid' => $c['cid'])}')">删除</a>]</td>
+					<th>CID</th>
+					<th>栏目名称</th>
+					<th>栏目层级</th>
+					<th>栏目排序</th>
+					<th>操作</th>
 				</tr>
-			</list>
-		</table>
+				<list from='$category' name='c'>
+					<tr>
+						<td>{$c.cid}</td>
+						<td>{$c._name}</td>
+						<td>{$c._level}</td>
+						<td><input class="w100" type="number" name="sort[{$c.cid}]" value="{$c.sort}"></td>
+						<td>[<a href="{|U:'add', array('pid' => $c['cid'])}">添加子栏目</a>][<a href="{|U:'edit', array('cid' => $c['cid'])}">编辑</a>][<a href="javascript:hd_ajax('{|U:'del', array('cid' => $c['cid'])}')">删除</a>]</td>
+					</tr>
+				</list>
+			</table>
+			<div class="postion-bottom">
+				<input class="btn hd-success" type="submit" value="提交">
+			</div>
+		</form>
 	</div>
 </body>
 </html>

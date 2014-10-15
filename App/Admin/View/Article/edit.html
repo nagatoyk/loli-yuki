@@ -33,7 +33,7 @@
 							<tr>
 								<td class="w100">文章分类</td>
 								<td>
-									<select name="catid">
+									<select name="cid">
 										<list from='$category' name='c'>
 										<option value="{$c.cid}"<if value='$field.catid eq $c.cid'> selected="selected"</if>>{$c._name}</option>
 										</list>
@@ -55,14 +55,6 @@
 					</div>
 					<div id="base2">
 						<table class="table1">
-							<tr>
-								<td>点击量</td>
-								<td><input type="number" name="click" value="{$field.click}"/></td>
-							</tr>
-							<tr>
-								<td>发布名</td>
-								<td><input type="text" name="author" value="{$field.author}" autocomplete="off"/></td>
-							</tr>
 							<tr>
 								<td>来源</td>
 								<td><input class="w400" type="text" name="source" value="{$field.source}" autocomplete="off"/></td>
