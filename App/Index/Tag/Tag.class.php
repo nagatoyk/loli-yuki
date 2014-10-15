@@ -1,11 +1,11 @@
 <?php
 class Tag{
-	// ±êÇ©×é
+	// æ ‡ç­¾ç»„
 	public $tag = array(
 		'topnav' => array('block' => 1, 'level' => 1),
 		'sidebar' => array('block' => 1, 'level' => 1)
 	);
-	// ¶¥²¿²Ëµ¥
+	// é¡¶éƒ¨èœå•
 	public function _topnav($attr, $content){
 		$php = <<<str
 	<?php \$db = M('category');
@@ -21,11 +21,11 @@ str;
 		$php .= '<?php endforeach; endif; ?>';
 		return $php;
 	}
-	// ±ßÀ¸±êÇ©
+	// è¾¹æ æ ‡ç­¾
 	public function _sidebar($attr, $content){
-		// Êı¾İÀàĞÍ('´ıÍêÉÆ')
+		// æ•°æ®ç±»å‹('å¾…å®Œå–„')
 		$type = isset($attr['type']) ? $attr['type'] : 'new';
-		// Êı¾İĞĞÊı
+		// æ•°æ®è¡Œæ•°
 		$row = isset($attr['row']) ? $attr['row'] : 10;
 		$tilen = isset($attr['tilen']) ? $attr['tilen'] : 10;
 		$hasimg = intval(isset($att['image']) ? $attr['image'] : 0);
