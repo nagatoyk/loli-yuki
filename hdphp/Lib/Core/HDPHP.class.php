@@ -142,9 +142,6 @@ final class HDPHP
         ) {
             return;
         }
-//        $msg = "Class {$className} not found";
-//        Log::write($msg);
-//        halt($msg);
     }
 
     /**
@@ -170,6 +167,8 @@ final class HDPHP
                 if(C('LOG_RECORD')) Log::write("[$errno] " . $msg, Log::ERROR);
                 function_exists('halt') ? halt($msg) : exit('ERROR:' . $msg);
                 break;
+            case E_DEPRECATED://忽略不建议使用的错误提示
+                break;
             default:
                 $errorStr = "[$errno] $error " . $file . " 第 $line 行.";
                 trace($errorStr, 'NOTICE', true);
@@ -183,8 +182,10 @@ final class HDPHP
     //致命错误处理
     static public function fatalError()
     {
-        if ($e = error_get_last()) {
-            self::error($e['type'], $e['message'], $e['file'], $e['line']);
+        if(function_exists('error_get_last')){
+            if ( $e = error_get_last()) {
+                self::error($e['type'], $e['message'], $e['file'], $e['line']);
+            }
         }
     }
 }

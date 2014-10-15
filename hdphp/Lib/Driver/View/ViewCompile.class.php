@@ -52,6 +52,7 @@ class ViewCompile
         $this->compile(); //解析全局内容
         $this->parseTokey(); //解析POST令牌Token
         $this->replaceConst(); //将所有常量替换   如把__APP__进行替换
+        $this->replaceLiteral();//将Literal内容替换
         $this->content = '<?php if(!defined("HDPHP_PATH"))exit;C("SHOW_NOTICE",FALSE);?>' . $this->content;
         if (!is_dir(APP_COMPILE_PATH)) {
             Dir::create(APP_COMPILE_PATH);
@@ -86,6 +87,17 @@ class ViewCompile
         $this->content = preg_replace('/\{\|(\w+)\((.*?)\}/i', '<?php echo \1(\2;?>', $this->content);
     }
 
+    //将Literal内容替换
+    private function replaceLiteral()
+    {
+        $literal=ViewTag::$literal;
+        if(count($literal)==0)return;
+        foreach($literal as $id=>$content){
+            $this->content=str_replace('###hd:Literal'.$id.'###',$content,$this->content);
+        }
+        ViewTag::$literal=array();
+    }
+
     /**
      * 加载标签库与解析标签
      */
@@ -93,6 +105,8 @@ class ViewCompile
     {
         //标签库类
         $tagClass = array();
+        //加载框架核心标签库
+        if (import('HDPHP.Lib.Driver.View.ViewTag')) $tagClass[] = 'ViewTag';
         //加载扩展标签库
         $tags = C('TPL_TAGS');
         //如果配置文件中存在标签定义
@@ -111,21 +125,13 @@ class ViewCompile
                 ) {
                 } else if (import($file)) {
                 } else {
-                    if (DEBUG) {
-                        halt("标签类文件{$class}不存在");
-                    } else {
-                        continue;
-                    }
+                    continue;
                 }
                 $tmp = explode(".", $class);
                 $tagClass[] = array_pop($tmp);
             }
         }
-        //加载框架核心标签库
-        if (import('HDPHP.Lib.Driver.View.ViewTag')) {
-            $tagClass[] = 'ViewTag';
-            $this->parseTagClass($tagClass);
-        }
+        $this->parseTagClass($tagClass);
     }
 
     /**

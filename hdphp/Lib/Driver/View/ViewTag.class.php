@@ -18,7 +18,8 @@
  */
 class ViewTag
 {
-
+    //为Literal标签使用，记录literal标签号
+    static $literal=array();
     /**
      * block 块标签       1为块标签  0独立标签
      * 块标题不用设置，行标签必须设置
@@ -40,7 +41,7 @@ class ViewTag
         'css' => array('block' => 0),
         'noempty' => array('block' => 0),
         'ueditor' => array('block' => 0),
-        'highlight' => array('block' => 0),
+        'codehighlight'=>array('block' => 0),//代码高亮
         'jquery' => array('block' => 0),
         'jcrop' => array('block' => 0),
         'upload' => array('block' => 0), //uploadif上传组件
@@ -52,11 +53,22 @@ class ViewTag
         'hdui' => array('block' => 0),//hdjs前台ui库
         'hdvalidate'=>array('block'=>0),//hdvalidate前端验证
         'hdslide' => array('block' => 0),//轮换版
-        'cal' => array('block' => 0)
+        'cal' => array('block' => 0),//日历
+        'literal'=>array('block' => 1, 'level' => 5)//Literal 标签区域内的数据将被当作文本处理
     );
 
+    /**
+     * 标签区域内的数据将被当作文本处理
+     * @param $attr
+     * @param $content
+     * @return mixed
+     */
+    public function _literal($attr,$content){
+       self::$literal[]=$content;
+       $id=count(self::$literal)-1;
+       return '###hd:Literal'.$id.'###';
+    }
     //格式化参数 字符串加引号
-
     private function formatArg($arg)
     {
         $valueFormat = trim(trim($arg, "'"), '"');
@@ -93,9 +105,7 @@ class ViewTag
     //图片放大镜
     public function _zoom($attr, $content)
     {
-        if (!isset($attr['data']) || !isset($attr['big']) || !isset($attr['small'])) {
-            halt('zoom标签必须设置 big、small、data属性', false); //zoom标签必须设置 pid、sid、data属性，检查一下看哪个没有设置
-        }
+        if (!isset($attr['data']) || !isset($attr['big']) || !isset($attr['small']))return;
         $data = $attr['data'];
         $big = $attr['big'];
         $small = $attr['small'];
@@ -163,18 +173,18 @@ class ViewTag
         $name = str_replace("[]", "", $_name);
         $id = "hd_uploadify_" . $name;
         //是否加水印
-        $water = isset($attr['water']) && $attr['water']=='true'?1:C("WATER_ON");
-        $waterbtn = isset($attr['waterbtn']) && $attr['waterbtn'] == 'false' ? 0 : 1;
+        $water = isset($attr['water']) && $attr['water']==1?1:C("WATER_ON");
+        $waterbtn = isset($attr['waterbtn']) && $attr['waterbtn'] == 1 ? 1 : 0;
         $width = isset($attr['width']) ? trim($attr['width'], "px") : "200"; //是否加水印
         $height = isset($attr['height']) ? trim($attr['height'], "px") : "150"; //是否加水印
         $size = isset($attr['size']) ? str_ireplace("MB", "", $attr['size']) . "MB" : "2MB"; //文件上传大小单位KB、MB、GB
         //允许上传文件类型
         if (isset($attr['type']) && !empty($attr['type'])) {
-            $_type = explode(";", str_replace(array(",", "*."), array(";", ""), $attr['type']));
-            foreach ($_type as $_type_k => $_type_t) {
-                $_type[$_type_k] = '*.' . $_type_t;
+            $allowUploadType = explode(',',$attr['type']);
+            foreach ($allowUploadType as $_type_k => $_type_t) {
+                $allowUploadType[$_type_k] = '*.' . $_type_t;
             }
-            $type = implode(";", $_type);
+            $type = implode(";", $allowUploadType);
         } else {
             $type = "*.gif;*.jpg;*.png;*.jpeg";
         }
@@ -182,7 +192,7 @@ class ViewTag
         //是否显示描述
         $alt = isset($attr['alt']) && $attr['alt'] == 'true' ? 1 : 0;
         //是上传文件大小等提示信息true是false不显示
-        $message = isset($attr['message']) && $attr['message']=='false'?0:1;
+        $message = isset($attr['message']) && $attr['message']==1?1:0;
         $limit = isset($attr['limit']) ? $attr['limit'] : "100"; //上传文件数量
         $thumb = isset($attr['thumb']) ? $attr['thumb'] : ''; //生成缩略图尺寸
         $data = isset($attr['data']) ? $attr['data'] : false; //编辑时的图片数据
@@ -275,7 +285,7 @@ class ViewTag
         hd_uploadify_options.input_type    ="' . $_input_type . '";
         hd_uploadify_options.elem_id    ="' . $_elem_id . '";
         hd_uploadify_options.success_msg    ="正在上传...";//上传成功提示文字
-        hd_uploadify_options.formData ={' . $post . 'water : "' . $water . '",fileSizeLimit:' . (intval($size) * 1024 * 1024) . ', someOtherKey:1,' . session_name() . ':"' . session_id() . '",upload_dir:"' . $upload_dir . '",hdphp_upload_thumb:"' . $thumb . '"};
+        hd_uploadify_options.formData ={' . $post .'type:"'.$type. '",water : "' . $water . '",fileSizeLimit:' . (intval($size) * 1024 * 1024) . ', someOtherKey:1,' . session_name() . ':"' . session_id() . '",upload_dir:"' . $upload_dir . '",hdphp_upload_thumb:"' . $thumb . '"};
         hd_uploadify_options.thumb_width =' . $width . ';
         hd_uploadify_options.thumb_height          =' . $height . ';
         hd_uploadify_options.uploadsSuccessNums = ' . $uploadsSuccessful . ';
@@ -328,7 +338,7 @@ class ViewTag
             'lineheight', '|','paragraph', 'fontfamily', 'fontsize', '|',
              'indent','justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|',
             'link', 'unlink', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
-            'simpleupload',  'emotion',   'map',  'insertcode',  'pagebreak','horizontal', '|',
+            'insertimage', 'emotion',   'map',  'insertcode',  'pagebreak','horizontal', '|',
             'inserttable', 'deletetable', 'insertparagraphbeforetable', 'insertrow',  'insertcol',  'mergecells', 'mergeright', 'mergedown', 'splittocells', 'splittorows', 'splittocols']
             ]";
         }
@@ -347,32 +357,49 @@ class ViewTag
                 serverUrl:'" . $phpScript . "&water={$water}'//图片上传脚本
                 ,zIndex : 1000
                 ,initialFrameWidth:{$width} //宽度1000
+                ,catchRemoteImageEnable:false//关闭远程图片自动保存到本地
                 ,initialFrameHeight:{$height} //宽度1000
                 ,imagePath:''//图片修正地址
                 ,autoHeightEnabled:false //是否自动长高,默认true
                 ,autoFloatEnabled:false //是否保持toolbar的位置不动,默认true
                 ,toolbars:$toolbars//工具按钮
-//                ,enableAutoSave: false//关闭自动保存
+                ,enableAutoSave: false//关闭自动保存
                 ,initialStyle:'p{line-height:1em; font-size: 14px; }'
             });
         })
         </script>";
         return $str;
     }
-
     //代码高亮
-    public function _highlight()
-    {
-        return '<link type="text/css" rel="stylesheet" href="__HDPHP_EXTEND__/Org/Editor/Keditor/plugins/code/prettify.css"/>
-                <script type="text/javascript" charset="utf-8" src="__HDPHP_EXTEND__/Org/Ueditor/third-party/codemirror/codemirror.js"></script>
-                <link rel="stylesheet" type="text/css" href="__HDPHP_EXTEND__/Org/Ueditor/third-party/codemirror/codemirror.css"/>
-                <script>
-                    var editor = CodeMirror.fromTextArea(myTextarea, {
-                        mode: "text/html"
-                    });
-                </script>';
+    public function _codehighlight($attr,$content){
+        $php=<<<php
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shCore.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushBash.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushCpp.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushCSharp.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushCss.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushDelphi.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushDiff.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushGroovy.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushJava.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushJScript.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushPhp.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushPlain.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushPython.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushRuby.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushScala.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushSql.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushVb.js"></script>
+            <script type="text/javascript" src="__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/shBrushXml.js"></script>
+            <link type="text/css" rel="stylesheet" href="__HDPHP_EXTEND__/Org/SyntaxHighlighter/styles/shCore.css"/>
+            <link type="text/css" rel="stylesheet" href="__HDPHP_EXTEND__/Org/SyntaxHighlighter/styles/shThemeDefault.css"/>
+            <script type="text/javascript">
+                SyntaxHighlighter.config.clipboardSwf = '__HDPHP_EXTEND__/Org/SyntaxHighlighter/scripts/clipboard.swf';
+                SyntaxHighlighter.all();
+            </script>
+php;
+        return $php;
     }
-
     //加载CSS文件
     public function _css($attr, $content)
     {
@@ -382,9 +409,7 @@ class ViewTag
 
     public function _js($attr, $content)
     {
-        if (!isset($attr['file'])) {
-            error("Js标签必须设置file属性");
-        }
+        if (!isset($attr['file'])) return;
         $attr = $this->replaceAttrConstVar($attr, true);
         return '<script type="text/javascript" src="' . $attr['file'] . '"></script>';
     }
@@ -392,8 +417,7 @@ class ViewTag
 
     public function _list($attr, $content)
     {
-        if (!isset($attr['from'])) halt('list标签缺少from属性');
-        if (!isset($attr['name'])) halt('list标签缺少name属性');
+        if (!isset($attr['from']) || !isset($attr['name'])) return;
         $var = $attr['from'];
         $name = str_replace('$', '', $attr['name']);
         $empty = isset($attr['empty']) ? $attr['empty'] : ''; //无数据时
@@ -429,9 +453,7 @@ class ViewTag
 
     public function _foreach($attr, $content)
     {
-        if (empty($attr['from'])) {
-            halt('foreach 模板标签必须有from属性', false); //foreach 模板标签必须有from属性
-        }
+        if (!isset($attr['from']))return;
         $php = ''; //组合成PHP
         $from = $attr['from'];
         $key = isset($attr['key']) ? $attr['key'] : '$key';
@@ -451,9 +473,7 @@ class ViewTag
      */
     public function _include($attr, $content)
     {
-        if (!isset($attr['file'])) {
-            halt('include 模板标签必须有file属性', false); //load标签必须有file属性
-        }
+        if (!isset($attr['file'])) return;
         $const = print_const(false, true);
         foreach ($const as $k => $v) {
             $attr['file'] = str_replace($k, $v, $attr['file']);
@@ -496,9 +516,7 @@ class ViewTag
 
     public function _if($attr, $content, $res)
     {
-        if (empty($attr['value'])) {
-            halt('if 模板标签必须有value属性', false); //if 模板标签必须有value属性
-        }
+        if (empty($attr['value']))return;
         $value = $attr['value'];
         $php = ''; //组合成PHP
         $php .= '<?php if(' . $value . '){?>';
@@ -525,9 +543,7 @@ class ViewTag
 
     public function _while($attr, $content, $res)
     {
-        if (empty($attr['value'])) {
-            halt('while模板标签必须有value属性', false);
-        }
+        if (empty($attr['value'])) return;
         $value = $attr['value'];
         $php = ''; //组合成PHP
         $php .= '<?php ' . " while($value){ ?>";
@@ -538,9 +554,7 @@ class ViewTag
 
     public function _empty($attr, $content, $res)
     {
-        if (empty($attr['value'])) {
-            halt('empty模板标签必须有value属性', false); //empty模板标签必须有value属性
-        }
+        if (empty($attr['value']))return;
         $value = $attr['value'];
         $php = "";
         $php = '<?php $_emptyVar =isset(' . $value . ')?' . $value . ':null?>';
@@ -575,15 +589,6 @@ class ViewTag
         $str = '';
         $str .= "<link href='__HDPHP_EXTEND__/Org/bootstrap/css/bootstrap.min.css' rel='stylesheet' media='screen'>\n";
         $str .= "<script src='__HDPHP_EXTEND__/Org/bootstrap/js/bootstrap.min.js'></script>";
-        $str .= '
-                <!--[if lte IE 6]>
-                <link rel="stylesheet" type="text/css" href="__HDPHP_EXTEND__/Org/bootstrap/ie6/css/bootstrap-ie6.css">
-                <![endif]-->';
-        $str .= '
-                <!--[if lt IE 9]>
-                <script src="__HDPHP_EXTEND__/Org/bootstrap/js/html5shiv.min.js"></script>
-                <script src="__HDPHP_EXTEND__/Org/bootstrap/js/respond.min.js"></script>
-                <![endif]-->';
         return $str;
     }
 
@@ -638,4 +643,5 @@ class ViewTag
         return "<link type='text/css' rel='stylesheet' href='__HDPHP_EXTEND__/Org/jcrop/css/jquery.Jcrop.min.css'/>\n
         <script src='__HDPHP_EXTEND__/Org/jcrop/js/jquery.Jcrop.min.js'></script>\n";
     }
+
 }

@@ -47,6 +47,7 @@ class IndexController extends Controller{
 		}else{
 			$where = 'catid='.$cid;
 		}
+		$this->cname = M('category')->where('cid='.$cid)->getField('cname');
 		$this->artlist = $this->art->where($where)->order('time DESC')->all();
 		$this->display();
 	}
