@@ -7,7 +7,7 @@
 				<dt>{$c.cname}<a href="{|U:'artlist', array('cid' => $c['cid'])}">更多>></a></dt>
 				<list from='$c.art' name='a'>
 				<dd>
-					<a href="{|U:'artview', array('aid' => $a['aid'])}" title="{$a.title}">{$a.title|hd_substr:'18','...'}</a>
+					<a href="{|U:'artview', array('aid' => $a['aid'])}" title="{$a.title}">{$a.title|hd_substr:18}</a>
 					<span>{$a.addtime|hd_date:'m/d'}</span>
 				</dd>
 				</list>

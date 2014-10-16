@@ -1,5 +1,5 @@
 <?php if(!defined('HDPHP_PATH'))exit();
-return array (
+$core = array (
 	'DB_DRIVER'          => 'mysqli',
 	'DB_CHARSET'         => 'utf8',
 	'DB_HOST'            => '127.0.0.1',
@@ -22,3 +22,4 @@ return array (
 		'/^art-(\d+)$/'  => 'Index/Index/artview/aid/#1'
 	)
 );
+return array_merge(include 'config.inc.php', $core);
