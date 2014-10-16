@@ -14,9 +14,9 @@ define('MYSQL_PASSWORD',                   '');
 define('APP_NAME',                     	 'App');
 define('APP_PATH',           './'.APP_NAME.'/');
 define('MODULE_LIST',            'Index,Admin');
-define('APP_LOG_PATH',         APP_PATH.'Log/');
-define('APP_CACHE_PATH',     APP_PATH.'Cache/');
-define('APP_TABLE_PATH',     APP_PATH.'Table/');
-define('APP_COMPILE_PATH', APP_PATH.'Compile/');
+// define('APP_LOG_PATH',         APP_PATH.'Log/');
+// define('APP_CACHE_PATH',     APP_PATH.'Cache/');
+// define('APP_TABLE_PATH',     APP_PATH.'Table/');
+// define('APP_COMPILE_PATH', APP_PATH.'Compile/');
 
 require './hdphp/hdphp.php';

@@ -27,7 +27,7 @@ str;
 		$type = isset($attr['type']) ? $attr['type'] : 'new';
 		// 数据行数
 		$row = isset($attr['row']) ? $attr['row'] : 10;
-		$tilen = isset($attr['tilen']) ? $attr['tilen'] : 10;
+		$tilen = isset($attr['tilen']) ? $attr['tilen'] : 20;
 		$hasimg = intval(isset($att['image']) ? $attr['image'] : 0);
 		$php = <<<str
 			<?php
@@ -47,7 +47,7 @@ str;
 			\$result = \$db->order('$order')->limit('$row')->all();
 			if(\$result):
 				foreach(\$result as \$field):
-					\$field['title'] = mb_substr(\$field['title'], 0, $tilen, 'utf8');
+					// \$field['title'] = mb_substr(\$field['title'], 0, $tilen, 'utf8');
 ?>
 str;
 		$php .= $content;

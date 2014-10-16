@@ -17,8 +17,8 @@ class ArticleController extends AuthController{
 	public function index(){
 		$field = array('aid', 'catid', 'uid', 'title', 'click', 'addtime');
 		$total = $this->db->count();
-		$page = new Page($total, 2, 5);
-		$this->page = $page->show();
+		$page = new Page($total, 10, 5);
+		$this->page = $page->show(2);
 		$this->article = $this->rdb->field($field)->order('addtime DESC')->limit($page->limit())->select();
 		$this->display();
 		// echo $sql ="SELECT ".C('DB_PREFIX')."article.catid, ".C('DB_PREFIX')."category.cid from ".C('DB_PREFIX')."article INNER JOIN ".C('DB_PREFIX')."category ON (".C('DB_PREFIX')."article.catid=".C('DB_PREFIX')."category.cid)";

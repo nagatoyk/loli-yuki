@@ -14,11 +14,11 @@ Static/
 Public/
 test/
 Think/
-thinkapp/
+th/
 upload/
-App/Compile/
-App/Cache/
-App/Log/
+App/Temp/Compile/
+App/Temp/Cache/
+App/Temp/Log/
 ooo/
 new/
 index*.php

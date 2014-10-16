@@ -1,4 +1,4 @@
-<?php if(!defined('HDPHP_PATH'))exit;
+<?php if(!defined('HDPHP_PATH'))exit();
 return array (
 	'DB_DRIVER'          => 'mysqli',
 	'DB_CHARSET'         => 'utf8',
@@ -16,5 +16,9 @@ return array (
 	'EDITOR_SAVE_PATH'   => 'upload/editor/',
 	'EDITOR_IMAGE_WATER' => false,
 	'URL_REWRITE'        => true,
-	'URL_TYPE'           => 1
+	'URL_TYPE'           => 1,
+	'ROUTE'              => array(
+		'/^cate-(\d+)$/' => 'Index/Index/artlist/cid/#1',
+		'/^art-(\d+)$/'  => 'Index/Index/artview/aid/#1'
+	)
 );
